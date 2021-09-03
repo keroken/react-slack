@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Form, Segment, Button, Header, Message, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import firebase from '../../firebase';
 
 class Register extends React.Component {
   state = {
@@ -14,7 +15,22 @@ class Register extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  handleSubmit = event => {
+    event.preventDefault();
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(createdUser => {
+        console.log(createdUser);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
+    const { username, email, password, passwordConfirmation } = this.state;
+
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -32,6 +48,7 @@ class Register extends React.Component {
                 placeholder="Username"
                 type="text"
                 onChange={this.handleChange}
+                value={username}
               />
               <Form.Input
                 fluid
@@ -41,6 +58,7 @@ class Register extends React.Component {
                 placeholder="Email Address"
                 type="email"
                 onChange={this.handleChange}
+                value={email}
               />
               <Form.Input
                 fluid
@@ -50,6 +68,7 @@ class Register extends React.Component {
                 placeholder="Password"
                 type="password"
                 onChange={this.handleChange}
+                value={password}
               />
               <Form.Input
                 fluid
@@ -59,6 +78,7 @@ class Register extends React.Component {
                 placeholder="Password Confirmation"
                 type="password"
                 onChange={this.handleChange}
+                value={passwordConfirmation}
               />
               <Button color="orange" fluid size="large">
                 Submit
