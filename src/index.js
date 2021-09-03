@@ -4,11 +4,21 @@ import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
+);
+
+const Root = () => (
+  <Router>
+    <Switch>
+      <Route path="/" component={App} />
+    </Switch>
+  </Router>
 );
 
 // If you want to start measuring performance in your app, pass a function
