@@ -3,9 +3,16 @@ import { Grid, Form, Segment, Button, Header, Message, Icon } from 'semantic-ui-
 import { Link } from 'react-router-dom';
 
 class Register extends React.Component {
-  state = {}
+  state = {
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirmation: ''
+  };
 
-  handleChange = () => {}
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
   render() {
     return (
@@ -63,8 +70,8 @@ class Register extends React.Component {
           </Message>
         </Grid.Column>
       </Grid>
-    )
-  }
+    );
+  };
 }
 
 export default Register;
