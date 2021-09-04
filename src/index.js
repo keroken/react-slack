@@ -5,22 +5,36 @@ import App from './components/App';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import reportWebVitals from './reportWebVitals';
+import firebase from './firebase';
+import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+class Root extends React.Component {
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.props.history.push('/');
+      }
+    })
+  }
 
-const Root = () => (
-  <Router>
-    <Switch>
-      <Route exact path="/" component={App} />
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
-    </Switch>
-  </Router>
-);
+  render() {
+    return (
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+      </Switch>
+    );
+  }
+}
+
+const RootWithAuth = withRouter(Root);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Root />
+    <Router>
+      <RootWithAuth />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
