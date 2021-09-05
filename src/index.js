@@ -7,6 +7,11 @@ import Register from './components/Auth/Register';
 import reportWebVitals from './reportWebVitals';
 import firebase from './firebase';
 import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const store = createStore(() => {}, composeWithDevTools());
 
 class Root extends React.Component {
   componentDidMount() {
@@ -32,9 +37,11 @@ const RootWithAuth = withRouter(Root);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <RootWithAuth />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <RootWithAuth />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
