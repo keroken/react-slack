@@ -37,8 +37,17 @@ class Root extends React.Component {
   }
 }
 
-// connect mapDispatchToProps to Root
-const RootWithAuth = withRouter(connect(null, { setUser })(Root));
+const mapStateToProps = state => ({
+  isLoading: state.user.isLoading
+});
+
+// connect mapStateToProps and mapDispatchToProps to Root
+const RootWithAuth = withRouter(
+  connect(
+    mapStateToProps,
+    { setUser }
+  )(Root)
+);
 
 ReactDOM.render(
   <React.StrictMode>
