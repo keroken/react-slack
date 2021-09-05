@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 
 const initialUserState = {
   currentUser: null,
-  idLoading: true
+  isLoading: true
 }
 
 const user_reducer = (state = initialUserState, action) => {
