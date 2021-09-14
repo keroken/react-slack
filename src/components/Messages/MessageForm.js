@@ -30,11 +30,11 @@ class MessageForm extends React.Component {
   }
 
   sendMessage = () => {
-    const { messageRef } = this.props;
+    const { messagesRef } = this.props;
     const { message, channel } = this.state;
     if (message) {
       this.setState({ loading: true });
-      messageRef
+      messagesRef
         .child(channel.id)
         .push()
         .set(this.createMessage())
@@ -56,6 +56,7 @@ class MessageForm extends React.Component {
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <Segment className="message__form">
         <Input
@@ -65,6 +66,9 @@ class MessageForm extends React.Component {
           style={{ marginBottom: '0.7em' }}
           label={<Button icon={'add'} />}
           labelPosition="left"
+          className={
+            errors.some(error => error.message.includes('message')) ? 'error' : ''
+          }
           placeholder="write your message"
         />
         <Button.Group icon widths="2">
