@@ -36,15 +36,14 @@ class Messages extends React.Component {
     });
   }
 
-  displayMessages = messages => {
+  displayMessages = messages => (
     messages.length > 0 && messages.map(message => (
       <Message
         key={message.timestamp}
         message={message}
         user={this.state.user}
       />
-    ));
-  }
+    )))
 
   render() {
     const { messagesRef, messages, channel, user } = this.state;
@@ -53,14 +52,7 @@ class Messages extends React.Component {
       <MessagesHeader />
       <Segment>
         <Comment.Group className="messages">
-          {/* {this.displayMessages(messages)} */}
-          {messages.length > 0 && messages.map(message => (
-            <Message
-              key={message.timestamp}
-              message={message}
-              user={this.state.user}
-            />
-          ))}
+          {this.displayMessages(messages)}
         </Comment.Group>
       </Segment>
       <MessageForm
