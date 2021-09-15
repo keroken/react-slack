@@ -43,7 +43,8 @@ class Messages extends React.Component {
         message={message}
         user={this.state.user}
       />
-    )))
+    ))
+  )
 
   render() {
     const { messagesRef, messages, channel, user } = this.state;
