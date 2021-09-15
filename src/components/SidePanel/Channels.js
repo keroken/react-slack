@@ -96,6 +96,20 @@ class Channels extends React.Component {
 
   isFormValid = ({ channelName, channelDetails }) => channelName && channelDetails;
 
+  displayChannels = channels => (
+    channels.length > 0 && channels.map(channel => (
+      <Menu.Item
+        key={channel.id}
+        onClick={() => this.changeChannel(channel)}
+        name={channel.name}
+        style={{ opacity: 0.7 }}
+        active={channel.id === this.state.activeChannel}
+      >
+        # {channel.name}
+      </Menu.Item>
+    ))
+  )
+
   render() {
     const { channels, modal } = this.state;
     return (
@@ -107,17 +121,7 @@ class Channels extends React.Component {
             </span>{' '}
             ({ channels.length }) <Icon name="add" onClick={this.openModal} />
           </Menu.Item>
-          {channels.length > 0 && channels.map(channel => (
-            <Menu.Item
-              key={channel.id}
-              onClick={() => this.changeChannel(channel)}
-              name={channel.name}
-              style={{ opacity: 0.7 }}
-              active={channel.id === this.state.activeChannel}
-            >
-              # {channel.name}
-            </Menu.Item>
-          ))}
+          {this.displayChannels(channels)}
         </Menu.Menu>
 
         {/* add channel modal */}
